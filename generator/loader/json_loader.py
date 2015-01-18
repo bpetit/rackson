@@ -17,8 +17,8 @@ class JsonLoader(object):
 
     def __get_content(self, path):
         name = os.path.basename(path)
-        self.__root[name] = {}
         if os.path.isdir(path):
+            self.__root[name] = {}
             self.__old_root = self.__root
             self.__root = self.__root[name]
             for i in os.listdir(path):
