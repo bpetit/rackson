@@ -1,0 +1,7 @@
+<ul>
+  {% for dev,content in devices.items() %}
+    <li>{{ dev }}
+        <ul>{% for k,v in content.items() %}<li>{{ k }} {{ v.common_name }}</li>{% endfor %}</ul>
+    </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,1 @@
+all = [ 'generator', 'loader' ]

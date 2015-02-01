@@ -33,3 +33,4 @@ class JsonLoader(object):
                 self.__root[
                     os.path.basename(path).split('.')[0]
                 ] = json.load(fd)
+                fd.close()

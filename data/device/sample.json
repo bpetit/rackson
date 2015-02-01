@@ -1,0 +1,15 @@
+{
+  "common-name": "sample",
+  "fqdn": "sample.sample.org",
+  "asset-tag": "SAMPLE01",
+  "network-interfaces": {
+    "intX": {
+      "mac-address": "xx:xx:xx:00:00:00",
+      "ipv4": [ "XXX.XXX.XXX.XXX/XX" ],
+      "ipv6": [ "xx:xx::xx/xxx" ]
+    },
+    "intY": {
+      "mac-address": "00:00:00:xx:xx:xx"
+    }
+  }
+}
