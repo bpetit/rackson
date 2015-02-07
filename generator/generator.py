@@ -23,33 +23,27 @@ class Generator(object):
         full_path = self.__output_path + name
         return open(full_path, "w")
 
-    def __gen_devices_list(self):
-        fd = self.__open_target_file("devices.html")
+    def __gen_something(self, target_file, template, vars_dict):
+        fd = self.__open_target_file(target_file)
         fd.write(
-            self.__templates.get_template('devices.html').render(
-               devices=self.__content['data']['device'].keys()
-            )
+            self.__templates.get_template(template).render(vars_dict)
         )
         fd.close()
+
+    def __gen_devices_list(self):
+        my_vars = { "devices": self.__content['data']['device'].keys() }
+        self.__gen_something("device/index.html", "devices.html", my_vars)
 
     def __gen_device(self):
         for name, data in self.__content['data']['device'].items():
-            fd = self.__open_target_file(name + ".html")
-            fd.write(
-                self.__templates.get_template('device.html').render(
-                    data=data
-                )
+            my_vars = { "data": data }
+            self.__gen_something(
+                "device/" + name + ".html", "device.html", my_vars
             )
-            fd.close()
 
     def __gen_dcs_list(self):
-        fd = self.__open_target_file("dc/index.html")
-        fd.write(
-            self.__templates.get_template('dcs.html').render(
-                dcs=self.__content['data']['dc'].keys()
-            )
-        )
-        fd.close()
+        my_vars = { "dcs": self.__content['data']['dc'].keys() }
+        self.__gen_something("dc/index.html", "dcs.html", my_vars)
 
 class TemplateLoader(object):
 
