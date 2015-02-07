@@ -17,6 +17,7 @@ class Generator(object):
     def generate(self):
         self.__gen_devices_list()
         self.__gen_device()
+        self.__gen_dcs_list()
 
     def __open_target_file(self, name):
         full_path = self.__output_path + name
@@ -40,6 +41,15 @@ class Generator(object):
                 )
             )
             fd.close()
+
+    def __gen_dcs_list(self):
+        fd = self.__open_target_file("dc/index.html")
+        fd.write(
+            self.__templates.get_template('dcs.html').render(
+                dcs=self.__content['data']['dc'].keys()
+            )
+        )
+        fd.close()
 
 class TemplateLoader(object):
 

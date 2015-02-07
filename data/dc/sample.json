@@ -1,0 +1,8 @@
+{
+  "location": "New-York, USA",
+  "racks": {
+        "sample-rack01": {
+          "size": "32"
+        }
+  }
+}
