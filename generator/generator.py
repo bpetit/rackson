@@ -15,10 +15,10 @@ class Generator(object):
         self.__output_path = output_path
 
     def generate(self):
-        self.__gen_devices_list()
-        self.__gen_device()
-        self.__gen_dcs_list()
-        self.__gen_dc()
+        self.__gen_devices_index()
+        self.__gen_devices()
+        self.__gen_dcs_index()
+        self.__gen_dcs()
 
     def __open_target_file(self, name):
         full_path = self.__output_path + name
@@ -31,24 +31,23 @@ class Generator(object):
         )
         fd.close()
 
-    def __gen_devices_list(self):
+    def __gen_devices_index(self):
         my_vars = { "devices": self.__content['data']['device'].keys() }
         self.__gen_something("device/index.html", "devices.html", my_vars)
 
-    def __gen_device(self):
+    def __gen_devices(self):
         for name, data in self.__content['data']['device'].items():
             my_vars = { "data": data }
             self.__gen_something(
                 "device/" + name + ".html", "device.html", my_vars
             )
 
-    def __gen_dcs_list(self):
+    def __gen_dcs_index(self):
         my_vars = { "dcs": self.__content['data']['dc'].keys() }
         self.__gen_something("dc/index.html", "dcs.html", my_vars)
 
-    def __gen_dc(self):
+    def __gen_dcs(self):
         for name, data in self.__content['data']['dc'].items():
-            pprint(data)
             my_vars = { "data": data }
             self.__gen_something("dc/" + name + ".html", "dc.html", my_vars)
 
