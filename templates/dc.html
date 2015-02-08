@@ -1,0 +1,11 @@
+<h2>{{ data.name }}<h2/>
+
+<p> @{{ data.location }}<p/>
+
+<h3>Racks:<h3/>
+
+<ul>
+{% for k, v in data.racks.items() %}
+  <li>{{ k }}: size={{ v.size }}<li/>
+{% endfor %}
+<ul/>

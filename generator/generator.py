@@ -18,6 +18,7 @@ class Generator(object):
         self.__gen_devices_list()
         self.__gen_device()
         self.__gen_dcs_list()
+        self.__gen_dc()
 
     def __open_target_file(self, name):
         full_path = self.__output_path + name
@@ -44,6 +45,12 @@ class Generator(object):
     def __gen_dcs_list(self):
         my_vars = { "dcs": self.__content['data']['dc'].keys() }
         self.__gen_something("dc/index.html", "dcs.html", my_vars)
+
+    def __gen_dc(self):
+        for name, data in self.__content['data']['dc'].items():
+            pprint(data)
+            my_vars = { "data": data }
+            self.__gen_something("dc/" + name + ".html", "dc.html", my_vars)
 
 class TemplateLoader(object):
 

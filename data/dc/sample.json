@@ -1,4 +1,5 @@
 {
+  "name": "Sample Data Center 3000",
   "location": "New-York, USA",
   "racks": {
         "sample-rack01": {
