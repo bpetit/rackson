@@ -3,7 +3,8 @@
 from jinja2 import Environment, FileSystemLoader
 from  generator.loader.json_loader import JsonLoader
 from pprint import pprint
-from os.path import isfile
+from os.path import isfile, dirname, isdir, abspath
+from os import makedirs
 
 class Generator(object):
 
@@ -22,6 +23,8 @@ class Generator(object):
 
     def __open_target_file(self, name):
         full_path = self.__output_path + name
+        if not isdir(dirname(full_path)):
+            makedirs(dirname(full_path))
         return open(full_path, "w")
 
     def __gen_something(self, target_file, template, vars_dict):
@@ -50,6 +53,12 @@ class Generator(object):
         for name, data in self.__content['data']['dc'].items():
             my_vars = { "data": data }
             self.__gen_something("dc/" + name + ".html", "dc.html", my_vars)
+            for rack_name, rack_data in data['racks'].items():
+                self.__gen_something(
+                    "dc/" + name + "/" + rack_name + ".html",
+                    "rack.html", { "data": rack_data, "name": rack_name }
+                )
+
 
 class TemplateLoader(object):
 
