@@ -6,7 +6,9 @@
     "intX": {
       "mac-address": "xx:xx:xx:00:00:00",
       "ipv4": [ "XXX.XXX.XXX.XXX/XX" ],
-      "ipv6": [ "xx:xx::xx/xxx" ]
+      "ipv6": [ "xx:xx::xx/xxx" ],
+      "peer": "switch01",
+      "wire-label": "E01"
     },
     "intY": {
       "mac-address": "00:00:00:xx:xx:xx"

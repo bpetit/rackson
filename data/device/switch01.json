@@ -1,0 +1,11 @@
+{
+  "common-name": "switch01",
+  "fqdn": "switch01.sample.org",
+  "asset-tag": "SWITCH01",
+  "network-interfaces": {
+    "intX": {
+      "peer": "sample",
+      "wire-label": "E01"
+    }
+  }
+}
