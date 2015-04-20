@@ -1,5 +1,4 @@
-<h2>{{ rack_name }}<h2/>
-
+<h2>{{ name }}<h2/>
 <table>
   <thead>
     <tr>
@@ -10,10 +9,17 @@
   <thead/>
   <tbody>
   {% for n in range(data.size) %}
+    {% set current_index = loop.index %}
     <tr>
-      <td>empty<td/>
-      <td>empty<td/>
-      <td>empty<td/>
+    {% for k,v in data.devices.items() %}
+      {% if data.size - v.u == current_index %}
+        <td>{% if v.front %}{{ k }}{% else %}empty{% endif %}</td>
+        <td>{% if v.center %}{{ k }}{% else %}empty{% endif %}</td>
+        <td>{% if v.back %}{{ k }}{% else %}empty{% endif %}</td>
+      {% elif loop.index == loop.length %}
+        <td>empty</td><td>empty</td><td>empty</td>
+      {% endif %}
+    {% endfor %}
     <tr/>
   {% endfor %}
   <tbody/>

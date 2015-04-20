@@ -2,8 +2,16 @@
   "name": "Sample Data Center 3000",
   "location": "New-York, USA",
   "racks": {
-        "sample-rack01": {
-          "size": 32
+    "sample-rack01": {
+      "size": 32,
+      "devices": {
+        "sample": {
+          "u": 10,
+          "front": "True",
+          "center": "True",
+          "back": "True"
         }
+      }
+    }
   }
 }
