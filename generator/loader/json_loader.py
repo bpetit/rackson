@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import json, re, os
-from pprint import pprint
 
 class JsonLoader(object):
 

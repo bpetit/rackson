@@ -5,8 +5,7 @@
   "network-interfaces": {
     "intX": {
       "mac-address": "xx:xx:xx:00:00:00",
-      "ipv4": [ "192.168.2.3/24" ],
-      "ipv6": [ "2:3::1/64" ],
+      "ip": [ "192.168.2.3/24", "2:3::1/64"],
       "peer": "switch01",
       "wire-label": "E01"
     },

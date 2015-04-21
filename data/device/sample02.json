@@ -1,0 +1,16 @@
+{
+  "common-name": "sample02",
+  "fqdn": "sample02.sample.org",
+  "asset-tag": "SAMPLE02",
+  "network-interfaces": {
+    "intX": {
+      "mac-address": "xx:xx:xx:00:00:00",
+      "ip": [ "192.168.2.4/24", "2:3::2/64"],
+      "peer": "switch02",
+      "wire-label": "E03"
+    },
+    "intY": {
+      "mac-address": "00:00:00:xx:xx:xx"
+    }
+  }
+}
