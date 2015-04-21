@@ -1,3 +1,12 @@
 {% for k,v in data.items() %}
   <p>{{ k }}: {{ v }}</p>
 {% endfor %}
+
+<h2> Ports </h2>
+<ul>
+  {% if 'network' in data.keys() %}
+    {% for int, val in data.network.items() %}
+      <li>{{ int }}: {{ val.peer }}</li>
+    {% endfor %}
+  {% endif %}
+</ul>

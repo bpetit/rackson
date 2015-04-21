@@ -68,8 +68,8 @@ class Generator(object):
         self.__clean_subnets_output()
         subnets = {}
         for dev,val in self.__content['data']['device'].items():
-            if 'network-interfaces' in val.keys():
-                for iface,content in val['network-interfaces'].items():
+            if 'network' in val.keys():
+                for iface,content in val['network'].items():
                     if "ip" in content.keys():
                         for ip in content['ip']:
                             net = ipaddress.ip_network(ip, strict=False)

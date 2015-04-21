@@ -2,7 +2,7 @@
   "common-name": "sample",
   "fqdn": "sample.sample.org",
   "asset-tag": "SAMPLE01",
-  "network-interfaces": {
+  "network": {
     "intX": {
       "mac-address": "xx:xx:xx:00:00:00",
       "ip": [ "192.168.2.3/24", "2:3::1/64"],
