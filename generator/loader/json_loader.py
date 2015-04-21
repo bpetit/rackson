@@ -19,18 +19,25 @@ class JsonLoader(object):
         name = os.path.basename(path)
         if os.path.isdir(path):
             self.__root[name] = {}
+            last_index = name
             self.__old_root = self.__root
             self.__root = self.__root[name]
             for i in os.listdir(path):
                 if path[-1] == '/':
-                    self.__get_content(path + i)
+                    if self.__get_content(path + i):
+                        break
                 else:
-                    self.__get_content(path + '/' + i)
+                    if self.__get_content(path + '/' + i):
+                        break
                 self.__root = self.__old_root
+            return False
         else:
-            if re.match("^.*json$", path):
-                fd = open(path)
-                self.__root[
-                    os.path.basename(path).split('.')[0]
-                ] = json.load(fd)
-                fd.close()
+            path = os.path.dirname(path)
+            for leaf in os.listdir(path):
+                if re.match("^.*json$", leaf):
+                    fd = open(path+'/'+leaf)
+                    self.__root[
+                        os.path.basename(path+'/'+leaf).split('.')[0]
+                    ] = json.load(fd)
+                    fd.close()
+            return True
