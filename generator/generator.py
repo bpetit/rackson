@@ -2,12 +2,12 @@
 
 from jinja2 import Environment, FileSystemLoader
 from generator.loader.json_loader import JsonLoader
-from generator.iphandler import IpHandler
 from pprint import pprint
 from os.path import isfile, dirname, isdir, abspath
 from os import makedirs
 from shutil import rmtree
 import ipaddress
+from collections import OrderedDict
 
 class Generator(object):
 
@@ -75,15 +75,18 @@ class Generator(object):
                             net = ipaddress.ip_network(ip, strict=False)
                             addr = ipaddress.ip_address(ip.split('/')[0])
                             if net in subnets.keys():
-                                subnets[net].append((dev, addr))
+                                subnets[net][dev] = addr
                             else:
-                                subnets[net] = [(dev, addr)]
+                                subnets[net] = {dev: addr}
         for net, data in subnets.items():
             name = str(net).replace(':', '-').replace('.', '-').replace('/', '_')
             pprint(data)
             self.__gen_something(
                 "subnets/" + name + '.html',
-                'subnet.html', { 'data': data, 'name': str(net), 'object': net }
+                'subnet.html', {
+                    'data': OrderedDict(sorted(data.items(), key=lambda t: t[1])),
+                    'name': str(net), 'object': net
+                }
             )
 
     def __clean_subnets_output(self):
