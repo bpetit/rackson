@@ -1,27 +1,34 @@
 {% include 'header.html' %}
 
+{% macro cell(i, where) -%}
+  {% if i|string in data.u.keys() %}
+   class = 'active'>
+    <a href="../../device/{{ data.u[i|string][where] }}.html">
+      {{ data.u[i|string][where] }}
+    </a>
+  {% else %}
+   >empty
+  {% endif %}
+{%- endmacro %}
+
 <h2>{{ name }}<h2/>
-<table>
+<table class='table table-bordered table-condensed table-responsive text-center'>
   <thead>
     <tr>
-      <th>front<th/>
-      <th>interior<th/>
-      <th>back<th/>
+      <th class='col-xs-1 text-center'>U</th>
+      <th class='col-xs-2 text-center'>front</th>
+      <th class='col-xs-4 text-center'>interior</th>
+      <th class='col-xs-2 text-center'>back</th>
     <tr/>
   <thead/>
   <tbody>
   {% for n in range(data.size) %}
-    {% set current_index = loop.index %}
     <tr>
-    {% for k,v in data.devices.items() %}
-      {% if data.size - v.u == current_index %}
-        <td>{% if v.front %}{{ k }}{% else %}empty{% endif %}</td>
-        <td>{% if v.center %}{{ k }}{% else %}empty{% endif %}</td>
-        <td>{% if v.back %}{{ k }}{% else %}empty{% endif %}</td>
-      {% elif loop.index == loop.length %}
-        <td>empty</td><td>empty</td><td>empty</td>
-      {% endif %}
-    {% endfor %}
+      {% set i = data.size - n %}
+      <td>{{ i }}</td>
+      <td{{ cell(i, 'front') }}</td>
+      <td{{ cell(i, 'center') }}</td>
+      <td{{ cell(i, 'back') }}</td>
     <tr/>
   {% endfor %}
   <tbody/>

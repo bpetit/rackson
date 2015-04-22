@@ -4,12 +4,11 @@
   "racks": {
     "sample-rack01": {
       "size": 32,
-      "devices": {
-        "sample": {
-          "u": 10,
-          "front": "True",
-          "center": "True",
-          "back": "True"
+      "u": {
+        "10": {
+          "front": "sample",
+          "center": "sample",
+          "back": "sample"
         }
       }
     }
