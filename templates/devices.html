@@ -1,6 +1,10 @@
+{% include 'header.html' %}
+
 <h2>Devices<h2/>
 <ul>
   {% for dev in devices %}
-    <li>{{ dev }}</li>
+    <li><a href="{{ dev }}.html">{{ dev }}</a>
   {% endfor %}
 </ul>
+
+{% include 'footer.html' %}

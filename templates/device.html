@@ -1,12 +1,29 @@
-{% for k,v in data.items() %}
-  <p>{{ k }}: {{ v }}</p>
-{% endfor %}
+{% include 'header.html' %}
+
+<h1>{{ data.fqdn }}</h1>
+
+<h2>General</h2>
+
+<table class='table table-bordered table-responsive'>
+  <tr><td>FQDN</td><td>{{ data.fqdn }}</td></tr>
+  <tr><td>Common name</td><td>{{ data['common-name'] }}</td></tr>
+  <tr><td>Asset tag</td><td>{{ data['asset-tag'] }}</td></tr>
+</table>
 
 <h2> Ports </h2>
-<ul>
+
+<table class='table table-hover table-responsive'>
+  <thead>
+    <tr><th>Name</th><th>MAC address</th><th>Wire label</th><th>Physical peer device</tr>
+  </thead>
+  <tbody>
   {% if 'network' in data.keys() %}
     {% for int, val in data.network.items() %}
-      <li>{{ int }}: {{ val.peer }}</li>
+      <tr><td>{{ int }}</td><td>{{ val['mac-address'] }}</td>
+      <td>{{ val['wire-label'] }}</td><td>{{ val.peer }}</td></tr>
     {% endfor %}
   {% endif %}
-</ul>
+  </tbody>
+</table>
+
+{% include 'footer.html' %}

@@ -1,7 +1,17 @@
+{% include 'header.html' %}
+
 <h2>{{ name }}</h2>
 
-<ul>
-{% for k,v in data.items() %}
-  <li>{{ k }}: {{ v|string }}</li>
-{% endfor %}
-</ul>
+<table class='table table-hover table-responsive'>
+  <thead>
+    <tr><th>Address</th><th>Device</th></tr>
+  </thead>
+  <tbody>
+  {% for k,v in data.items() %}
+    <tr><td>{{ v|string }}</td><td><a href='../device/{{ k }}.html'>{{ k }}</a></td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% include 'footer.html' %}
