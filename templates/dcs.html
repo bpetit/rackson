@@ -1,10 +1,10 @@
 {% include 'header.html' %}
 
-<h2>Dcs<h2/>
+<h2>Dcs</h2>
 <ul>
   {% for dc in dcs %}
-    <li>{{ dc }} <li/>
+    <li><a href="{{ dc }}.html">{{ dc }}</a> </li>
   {% endfor %}
-<ul/>
+</ul>
 
 {% include 'footer.html' %}

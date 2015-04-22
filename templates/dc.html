@@ -6,10 +6,16 @@
 
 <h3>Racks:<h3/>
 
-<ul>
+<table class='table table-responsive table-striped'>
+<thead>
+<tr>
+  <th>ID</th><th>Size</th><th>Usage</th>
+</tr>
+</thead>
+<tbody>
 {% for k, v in data.racks.items() %}
-  <li>{{ k }}: size={{ v.size }}<li/>
+  <tr><td><a href="{{ data.id }}/{{ k }}.html">{{ k }}</a></td><td>{{ v.size }}</td><td>{{ v.usage }}</td><tr/>
 {% endfor %}
-<ul/>
+</tbody>
 
 {% include 'footer.html' %}
