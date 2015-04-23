@@ -53,7 +53,8 @@ class Generator(object):
             )
 
     def __gen_dcs_index(self):
-        my_vars = { "dcs": self.__content['data']['dc'].keys() }
+        pprint(self.__content['data']['dc'])
+        my_vars = { "dcs": self.__content['data']['dc'] }
         self.__gen_something("dc/index.html", "dcs.html", my_vars)
 
     def __gen_dcs(self):

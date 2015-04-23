@@ -1,10 +1,20 @@
 {% include 'header.html' %}
 
 <h2>Dcs</h2>
-<ul>
-  {% for dc in dcs %}
-    <li><a href="{{ dc }}.html">{{ dc }}</a> </li>
+
+<table class='table table-hover table-responsive'>
+  <thead>
+    <tr><th>ID</th><th>Name</th><th>Location</th></tr>
+  </thead>
+  {% for id, dc in dcs.items() %}
+    <tbody>
+    <tr>
+      <td><a href="{{ id }}.html">{{ id }}</a></td>
+      <td><a href="{{ id }}.html">{{ dc.name }}</a></td>
+      <td>{{ dc.location }}</td>
+    </tr>
+    </tbody>
   {% endfor %}
-</ul>
+</table>
 
 {% include 'footer.html' %}
