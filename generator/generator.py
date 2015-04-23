@@ -35,6 +35,7 @@ class Generator(object):
     def __gen_something(self, target_file, template, vars_dict):
         fd = self.__open_target_file(target_file)
         vars_dict['libpath'] = abspath("../rackson/lib/bootstrap-3.3.4-dist/")
+        vars_dict['outputpath'] = abspath("../rackson/output/")
         fd.write(
             self.__templates.get_template(template).render(vars_dict)
         )
