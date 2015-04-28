@@ -17,7 +17,7 @@ class Generator(object):
         if not output_path[-1] == '/':
             output_path += '/'
         self.__output_path = output_path
-        pprint(self.__content)
+        self.__templates.add_filter('subnetfilename', self.subnetfilename)
 
     def generate(self):
         self.__gen_devices_index()
@@ -33,6 +33,7 @@ class Generator(object):
         return open(full_path, "w")
 
     def __gen_something(self, target_file, template, vars_dict):
+        print("target: " + target_file)
         fd = self.__open_target_file(target_file)
         vars_dict['libpath'] = abspath("../rackson/lib/bootstrap-3.3.4-dist/")
         vars_dict['outputpath'] = abspath("../rackson/output/")
@@ -40,6 +41,9 @@ class Generator(object):
             self.__templates.get_template(template).render(vars_dict)
         )
         fd.close()
+
+    def subnetfilename(self, cidr):
+        return str(cidr).replace(':', '-').replace('.', '-').replace('/', '_')
 
     def __gen_devices_index(self):
         my_vars = { "devices": self.__content['data']['device'].keys() }
@@ -53,7 +57,6 @@ class Generator(object):
             )
 
     def __gen_dcs_index(self):
-        pprint(self.__content['data']['dc'])
         my_vars = { "dcs": self.__content['data']['dc'] }
         self.__gen_something("dc/index.html", "dcs.html", my_vars)
 
@@ -67,7 +70,7 @@ class Generator(object):
                     "rack.html", { "data": rack_data, "name": rack_name }
                 )
 
-    def __gen_subnets(self, ):
+    def __gen_subnets(self):
         self.__clean_subnets_output()
         subnets = {}
         for dev,val in self.__content['data']['device'].items():
@@ -82,8 +85,7 @@ class Generator(object):
                             else:
                                 subnets[net] = {dev: addr}
         for net, data in subnets.items():
-            name = str(net).replace(':', '-').replace('.', '-').replace('/', '_')
-            pprint(data)
+            name = self.subnetfilename(net)
             self.__gen_something(
                 "subnets/" + name + '.html',
                 'subnet.html', {
@@ -91,6 +93,13 @@ class Generator(object):
                     'name': str(net), 'object': net
                 }
             )
+        self.__gen_subnets_index(subnets)
+
+    def __gen_subnets_index(self, subnets):
+        self.__gen_something(
+            "subnets/index.html", "subnets.html",
+            { 'subnets': subnets }
+        )
 
     def __clean_subnets_output(self):
         path = self.__output_path + 'subnets'
@@ -106,3 +115,6 @@ class TemplateLoader(object):
 
     def get_template(self, filename):
         return self.__env.get_template(filename)
+
+    def add_filter(self, name, func):
+        self.__env.filters[name] = func

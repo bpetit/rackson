@@ -1,0 +1,7 @@
+{% include 'header.html' %}
+  <ul>
+  {% for net,content in subnets.items() %}
+    <li><a href='{{ net|subnetfilename }}.html'>{{ net }}</a></li>
+  {% endfor %}
+  </ul>
+{% include 'footer.html' %}
