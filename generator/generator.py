@@ -22,6 +22,7 @@ class Generator(object):
 
     def __add_filters(self):
         self.__templates.add_filter('subnetfilename', subnet_filename)
+        self.__templates.add_filter('percentage', percentage)
 
     def generate(self):
         self.__gen_devices_index()
