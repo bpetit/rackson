@@ -1,1 +1,1 @@
-all = [ 'generator', 'loader' ]
+all = [ 'generator', 'loader', 'filters' ]

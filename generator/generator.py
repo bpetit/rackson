@@ -8,6 +8,7 @@ from os import makedirs
 from shutil import rmtree
 import ipaddress
 from collections import OrderedDict
+from generator.filters import *
 
 class Generator(object):
 
@@ -17,7 +18,10 @@ class Generator(object):
         if not output_path[-1] == '/':
             output_path += '/'
         self.__output_path = output_path
-        self.__templates.add_filter('subnetfilename', self.subnetfilename)
+        self.__add_filters()
+
+    def __add_filters(self):
+        self.__templates.add_filter('subnetfilename', subnet_filename)
 
     def generate(self):
         self.__gen_devices_index()
@@ -41,9 +45,6 @@ class Generator(object):
             self.__templates.get_template(template).render(vars_dict)
         )
         fd.close()
-
-    def subnetfilename(self, cidr):
-        return str(cidr).replace(':', '-').replace('.', '-').replace('/', '_')
 
     def __gen_devices_index(self):
         my_vars = { "devices": self.__content['data']['device'].keys() }
@@ -85,7 +86,7 @@ class Generator(object):
                             else:
                                 subnets[net] = {dev: addr}
         for net, data in subnets.items():
-            name = self.subnetfilename(net)
+            name = subnet_filename(net)
             self.__gen_something(
                 "subnets/" + name + '.html',
                 'subnet.html', {
